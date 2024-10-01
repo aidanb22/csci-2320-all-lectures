@@ -1,0 +1,40 @@
+import java.util.Stack;
+
+public class Solution {
+
+    public boolean isValid(String s) {
+        if (s.length() == 0) {
+            return false; //  empty string is considered false
+        }
+
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char current = s.charAt(i);
+
+            // push opening brackets onto the stack
+            if (current == '(' || current == '[' || current == '{') {
+                stack.push(current);
+            } else {
+                // check if the stack is empty or top does not match
+                if (stack.isEmpty()) {
+                    return false;
+                }
+
+                char top = stack.pop();
+                if (current == ')' && top != '(') {
+                    return false;
+                }
+                if (current == ']' && top != '[') {
+                    return false;
+                }
+                if (current == '}' && top != '{') {
+                    return false;
+                }
+            }
+        }
+
+        //  should be empty if all brackets are matched
+        return stack.isEmpty();
+    }
+}
